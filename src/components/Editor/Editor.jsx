@@ -550,8 +550,8 @@ function Editor(props) {
           ? [...activeInfo.details[0]?.points]
           : ""
         : activeInfo?.points
-        ? [...activeInfo.points]
-        : "",
+          ? [...activeInfo.points]
+          : "",
       title: activeInfo?.details
         ? activeInfo.details[0]?.title || ""
         : activeInfo?.detail?.title || "",
@@ -593,13 +593,14 @@ function Editor(props) {
   }, [activeDetailIndex]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
+    <div className="container min-w-550 min-h-450 max-w-750 flex flex-col gap-8 shadow-md pt-1 h-auto  cursor-pointer w-1/2">
+      <div className="header flex gap-4 overflow-x-auto border-b border-gray-200">
         {Object.keys(sections)?.map((key) => (
           <div
-            className={`${styles.section} ${
-              activeSectionKey === key ? styles.active : ""
-            }`}
+            className={`${activeSectionKey === key
+              ? "border-b-2 border-blue-500 text-blue-500"
+              : ""
+              }`}
             key={key}
             onClick={() => setActiveSectionKey(key)}
           >
@@ -608,7 +609,7 @@ function Editor(props) {
         ))}
       </div>
 
-      <div className={styles.body}>
+      <div className="body p-8 flex flex-col gap-5 pt-0">
         <InputControl
           label="Title"
           placeholder="Enter section title"
@@ -616,31 +617,30 @@ function Editor(props) {
           onChange={(event) => setSectionTitle(event.target.value)}
         />
 
-        <div className={styles.chips}>
+        <div className="chips flex flex-wrap items-center gap-5">
           {activeInformation?.details
             ? activeInformation?.details?.map((item, index) => (
-                <div
-                  className={`${styles.chip} ${
-                    activeDetailIndex === index ? styles.active : ""
-                  }`}
-                  key={item.title + index}
-                  onClick={() => setActiveDetailIndex(index)}
-                >
-                  <p>
-                    {sections[activeSectionKey]} {index + 1}
-                  </p>
-                  <X
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      handleDeleteDetail(index);
-                    }}
-                  />
-                </div>
-              ))
+              <div
+                className={`${activeDetailIndex === index ? "bg-blue-500" : "bg-gray-600"
+                  } px-2 py-1 rounded-lg flex items-center gap-1 cursor-pointer`}
+                key={item.title + index}
+                onClick={() => setActiveDetailIndex(index)}
+              >
+                <p>
+                  {sections[activeSectionKey]} {index + 1}
+                </p>
+                <X
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    handleDeleteDetail(index);
+                  }}
+                />
+              </div>
+            ))
             : ""}
           {activeInformation?.details &&
-          activeInformation?.details?.length > 0 ? (
-            <div className={styles.new} onClick={handleAddNew}>
+            activeInformation?.details?.length > 0 ? (
+            <div className="new text-blue-500 font-semibold tracking-wider cursor-pointer" onClick={handleAddNew}>
               +New
             </div>
           ) : (
@@ -650,7 +650,12 @@ function Editor(props) {
 
         {generateBody()}
 
-        <button onClick={handleSubmission}>Save</button>
+        <button
+          onClick={handleSubmission}
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 w-1/5 mx-auto block"
+        >
+          Save
+        </button>
       </div>
     </div>
   );
