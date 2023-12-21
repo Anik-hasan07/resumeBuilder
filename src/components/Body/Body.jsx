@@ -9,8 +9,8 @@ import Resume from "../Resume/Resume";
 function Body() {
   const colors = ["#239ce2", "#48bb78", "#0bc5ea", "#a0aec0", "#ed8936"];
   const sections = {
-    basicInfo: "Basic Info",
-    workExp: "Work Experience",
+    basicInfo: "Basic",
+    workExp: "Experience",
     project: "Projects",
     education: "Education",
     achievement: "Achievements",
@@ -60,7 +60,7 @@ function Body() {
 
   return (
     <div className="px-12 py-8 flex flex-col items-center gap-8">
-      <p className="font-medium text-xl">Resume Builder</p>
+      <p className="font-bold text-xl text-orange-700	">Build your Resume before your next Interview!!!</p>
       <div className="w-full flex justify-end items-center">
         <ReactToPrint
           trigger={() => (
@@ -71,18 +71,18 @@ function Body() {
           content={() => resumeRef.current}
         />
       </div>
-      <div className="flex flex-col gap-8 w-full">
+      <div className="flex flex-row gap-8 w-full">
         <Editor
           sections={sections}
           information={resumeInformation}
           setInformation={setResumeInformation}
         />
-        {/* <Resume
+        <Resume
           ref={resumeRef}
           sections={sections}
           information={resumeInformation}
           activeColor={activeColor}
-        /> */}
+        />
       </div>
     </div>
   );
